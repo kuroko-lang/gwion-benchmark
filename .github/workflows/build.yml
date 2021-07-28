@@ -39,6 +39,7 @@ jobs:
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
         git checkout ${GITHUB_REF} benchmark.sh version.sh bench.plot src
+        kuroko --version
         bash benchmark.sh
         git rm -rf benchmark.sh version.sh bench.plot src
         echo "${{ github.event.client_payload.commit_info }}" > commit_info
