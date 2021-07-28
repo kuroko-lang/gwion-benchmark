@@ -30,6 +30,8 @@ jobs:
     - name: Benchmark
       run: |
         echo 1 | sudo tee /proc/sys/kernel/perf_event_paranoid
+        sudo apt-get update
+        sudo apt-get install gnuplot
         export PATH=./Gwion:$PATH
         export PATH=./kuroko:$PATH
         export PATH=.:$PATH
@@ -40,6 +42,7 @@ jobs:
         git config --local user.name "GitHub Action"
         git checkout ${GITHUB_REF} benchmark.sh version.sh bench.plot src
         kuroko --version
+        kuroko src/binary-trees.krk
         bash benchmark.sh
         git rm -rf benchmark.sh version.sh bench.plot src
         echo "${{ github.event.client_payload.commit_info }}" > commit_info
