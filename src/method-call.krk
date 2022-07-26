@@ -1,29 +1,28 @@
 #!/usr/bin/python
 # http://www.bagley.org/~doug/shootout/
 
-class Toggle(object):
-    def __init__(self, start_state):
-        self.bool = start_state
-    def value(self):
-        return(self.bool)
-    def activate(self):
-        self.bool = not self.bool
-        return(self)
-
-class NthToggle(Toggle):
-    def __init__(self, start_state, max_counter):
-        Toggle.__init__(self, start_state)
-        self.count_max = max_counter
-        self.counter = 0
-    def activate(self):
-        self.counter += 1
-        if (self.counter >= self.count_max):
-            super(NthToggle, self).activate()
-            self.counter = 0
-        return(self)
-
-
 def main():
+    class Toggle(object):
+        def __init__(self, start_state):
+            self.bool = start_state
+        def value(self):
+            return(self.bool)
+        def activate(self):
+            self.bool = not self.bool
+            return(self)
+
+    class NthToggle(Toggle):
+        def __init__(self, start_state, max_counter):
+            Toggle.__init__(self, start_state)
+            self.count_max = max_counter
+            self.counter = 0
+        def activate(self):
+            self.counter += 1
+            if (self.counter >= self.count_max):
+                super(NthToggle, self).activate()
+                self.counter = 0
+            return(self)
+
     let NUM = 100000
 
     let val = 1
