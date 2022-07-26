@@ -106,18 +106,6 @@ jobs:
         cmake .. -G 'Unix Makefiles' -DCMAKE_BUILD_TYPE=Release
         make
         cp vy vyse
-    
-    - name: Pa
-      run: |
-        url=https://github.com/valkarias/Pa/releases/download/ubuntu-latest/
-        file=PBuild_ubuntu-latest.zip
-        wget "$url/$file"
-        unzip $file
-        rm $file
-        chmod +x pbuild/pbuild
-        ./pbuild/pbuild download
-        ./pbuild/pbuild build --cc-type=gcc
-        mv ~/Pa/Pa-master/bin/Pa pa
 
     - name: Kuroko
       run: |
@@ -129,9 +117,7 @@ jobs:
       run: |
         echo 1 | sudo tee /proc/sys/kernel/perf_event_paranoid
         sudo apt-get update
-        sudo apt-get install gnuplot chuck
-        echo 'chuck --silent $@' > ./chuck
-        chmod +x ./chuck
+        sudo apt-get install gnuplot
         export PATH=./wren/bin:$PATH
         export PATH=./lua:$PATH
         export PATH=./mdr:$PATH
@@ -158,7 +144,3 @@ jobs:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         branch: results
 
-    - name: Chuck Fib Debug
-      run: |
-        git checkout master src
-        perf stat chuck -s src/fib-recurs.ck
